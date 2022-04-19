@@ -3,7 +3,9 @@ const TIMEOUT = 1500;
 const SUCCESS_STATUS = 'OK';
 
 const readUser = () => JSON.parse(localStorage.getItem(USER_KEY));
+// Recupera o valor de user, acessando assim todos os dados armazenados no objeto do navegador
 const saveUser = (user) => localStorage.setItem(USER_KEY, JSON.stringify(user));
+// Cria um novo par de key: value, armazena os valores após converter para strings, antes das informações do usuário serem gravadas, porque precisa para armazenar objetos (ou arrays)
 
 // --------------------------------------------------------------------
 // A função simulateRequest simula uma requisição para uma API externa
@@ -20,6 +22,7 @@ const simulateRequest = (response) => (callback) => {
 
 export const getUser = () => new Promise((resolve) => {
   let user = readUser();
+  // console.log(user); OK, um objeto com nome, email, imagem e descrição
   if (user === null) {
     user = {};
   }
@@ -33,6 +36,7 @@ export const createUser = (user) => new Promise((resolve) => {
     image: '',
     description: '',
   };
+  // Agrega ao user {} essas propriedades que são transformadas em string e armazenadas pela saveUser e posteriormente resgatadas na readUser
   saveUser({ ...emptyUser, ...user });
   simulateRequest(SUCCESS_STATUS)(resolve);
 });

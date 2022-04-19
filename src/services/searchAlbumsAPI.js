@@ -28,6 +28,7 @@ const searchAlbumsAPI = async (artist) => {
       trackCount,
     }),
   );
+  // console.log(response); array inicialmente vazio que virá com demais informações do artista
   return response;
 };
 

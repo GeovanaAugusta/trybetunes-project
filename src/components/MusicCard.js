@@ -25,7 +25,7 @@ class MusicCard extends React.Component {
     });
 
     const getMusic = await getMusics(trackId);
-    console.log(getMusic); // Objeto com todas as informações da música com o checked
+    // console.log(getMusic); // Objeto com todas as informações da música com o checked
     const getSong = await addSong(getMusic);
     console.log(getSong);
 
@@ -35,10 +35,14 @@ class MusicCard extends React.Component {
   }
 
   render() {
-    const { trackName, previewUrl, trackId } = this.props;
-    const { isLoading, isChecked } = this.state;
+    const { trackName, previewUrl, trackId, checked } = this.props;
+    const { isChecked, isLoading } = this.state;
     // console.log(typeof trackName); //string
     // console.log(typeof previewUrl); // string
+    // console.log(isChecked);
+    const isFavorite = checked.some((favoriteId) => favoriteId === trackId);
+    // console.log(isFavorite);
+
     return (
       <div>
         {isLoading ? <Loading /> : (
@@ -51,13 +55,14 @@ class MusicCard extends React.Component {
               .
             </audio>
             <label htmlFor="checkbox">
+              Favoritar
               <input
                 id="checkbox"
                 type="checkbox"
                 data-testid={ `checkbox-music-${trackId}` }
                 onChange={ this.handleChange }
                 // Mudei pra change porque deu warning usando click
-                checked={ isChecked }
+                checked={ (isFavorite) || (isChecked) }
               />
             </label>
           </div>
@@ -71,6 +76,7 @@ MusicCard.propTypes = {
   trackName: PropTypes.string.isRequired,
   previewUrl: PropTypes.string.isRequired,
   trackId: PropTypes.number.isRequired,
+  checked: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default MusicCard;
@@ -79,3 +85,6 @@ export default MusicCard;
 // Requisito 8
 //  https://stackoverflow.com/questions/11599666/get-the-value-of-checked-checkbox
 // https://stackoverflow.com/questions/6358673/javascript-checkbox-onchange
+
+// Requisito 9
+// Jensem dá a luz sobre eu enviar pra cá o map que eu tinha feito de id-favoritas (da Album), via props, a partir disso usar alguma hof pra cruzar as informações se o id se repete, ou seja, a favorita.Para isso, vou deixar meu estado para manter dando check e o loading acontecer enquanto se espera a API. Ao fnalizar, a 8 deixava de passar e Pessini sugere o uso de condicional para que assim, o checked pegue ambos (meu isChecked que sempre foi do estado e o boolean que o some me dá)

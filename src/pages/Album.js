@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import getMusics from '../services/musicsAPI';
 import MusicCard from '../components/MusicCard';
+import { getFavoriteSongs } from '../services/favoriteSongsAPI';
+import Loading from '../components/Loading';
 
 class Album extends React.Component {
   constructor() {
@@ -10,6 +12,8 @@ class Album extends React.Component {
       musics: [],
       firstObject: {},
       arrayWithoutFirstObject: [],
+      getFavorites: [],
+      isWaiting: false,
     };
   }
 
@@ -25,18 +29,31 @@ class Album extends React.Component {
     // console.log(getMusic[0].trackName); // undefined porque nessa posição não tem trackName, então preciso remover esse 1 objeto antes de iterar, por isso fica dando erro de undefined quando itero sem remover
     // console.log(getMusic.slice(1)); // Só slice funciona no teste, apesar de shift ter o mesmo comportamento
 
+    const getFavorite = await getFavoriteSongs();
+    // console.log(getFavorite);
+
     this.setState({
       musics: getMusic,
       firstObject: getMusic[0],
       arrayWithoutFirstObject: getMusic.slice(1),
+      isWaiting: true,
+    });
+
+    // Para quando a resposta da getFavorite chegar
+    this.setState({
+      getFavorites: getFavorite,
+      isWaiting: false,
     });
   }
 
   render() {
     const { musics,
       firstObject: { artistName, collectionName },
-      arrayWithoutFirstObject } = this.state;
+      arrayWithoutFirstObject, isWaiting, getFavorites } = this.state;
     // console.log(artistName, collectionName); // Ok, funcionam
+
+    const getId = getFavorites.map((favoriteElement) => favoriteElement.trackId);
+    // console.log(getId);
 
     return (
       <div data-testid="page-album">
@@ -47,16 +64,19 @@ class Album extends React.Component {
             <h3 data-testid="artist-name">{artistName}</h3>
             <h3 data-testid="album-name">{collectionName}</h3>
 
-            {arrayWithoutFirstObject.map((element, index) => (
+            { isWaiting ? <Loading /> : (
+              arrayWithoutFirstObject.map((element, index) => (
+                <div key={ index }>
+                  <MusicCard
+                    trackName={ element.trackName }
+                    previewUrl={ element.previewUrl }
+                    trackId={ element.trackId }
+                    key={ index }
+                    checked={ getId }
+                  />
 
-              <MusicCard
-                trackName={ element.trackName }
-                previewUrl={ element.previewUrl }
-                trackId={ element.trackId }
-                key={ index }
-              />
-
-            ))}
+                </div>
+              )))}
 
           </div>
 
@@ -83,3 +103,6 @@ Album.propTypes = {
 // https://bobbyhadz.com/blog/javascript-remove-first-element-from-array#:~:text=To%20remove%20the%20first%20element,and%20returns%20the%20removed%20element.
 // 945 https://stackoverflow.com/questions/10024866/remove-object-from-array-using-javascript
 // Para uso do map: Missions e MissionsCard do SolarSystem bastaram para relembrar
+
+// Requisito 9
+//  Muca deu ideia de que preciso pegar algo único para comparar se é ou não favorito, pegarei o id , então a partir de um array com todos os ids... depois comparo com o array com TODAS as músicas tendo meu boolean de se é ou não favorito

@@ -25,6 +25,7 @@ const simulateRequest = (response) => (callback) => {
 
 export const getFavoriteSongs = () => new Promise((resolve) => {
   const favoriteSongs = readFavoriteSongs();
+  // console.log(favoriteSongs)
   simulateRequest(favoriteSongs)(resolve);
 });
 
@@ -32,6 +33,7 @@ export const addSong = (song) => new Promise((resolve) => {
   if (song) {
     const favoriteSongs = readFavoriteSongs();
     saveFavoriteSongs([...favoriteSongs, song]);
+    // console.log(favoriteSongs);
   }
   simulateRequest(SUCCESS_STATUS)(resolve);
 });

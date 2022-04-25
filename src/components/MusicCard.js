@@ -37,7 +37,7 @@ class MusicCard extends React.Component {
     }, async () => {
       const { isChecked } = this.state;
       const { trackId } = this.props;
-      const getMusic = await getMusics(trackId); // Retorna um ARRAY e eu preciso do OBJETO e a posição um apenas, se não dá erro, cismei que o retorno era objeto, então conserto o requisito 8 com esse update
+      const getMusic = await getMusics(trackId); // Retorna um ARRAY e eu preciso do OBJETO e a posição um apenas, se não dá erro, cismei que o retorno era objeto, então conserto o requisito 8 com esse update.
       // console.log(getMusic);
       const arrayToObject = { ...getMusic[0] }; // Object assign o lint não permitiu
       // console.log(arrayToObject);

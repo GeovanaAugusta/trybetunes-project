@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Loading from './Loading';
-import { addSong } from '../services/favoriteSongsAPI';
+import { addSong, removeSong } from '../services/favoriteSongsAPI';
 import getMusics from '../services/musicsAPI';
 
 class MusicCard extends React.Component {
@@ -13,35 +13,52 @@ class MusicCard extends React.Component {
     };
   }
 
-  handleChange = async (event) => {
+  componentDidMount = () => {
+    const { checked, trackId } = this.props;
+    // console.log(checked);
+    this.setState({
+      isChecked: checked.some((favoriteId) => favoriteId === trackId), // Muito mais lógico passar aqui essa informação após a renderização da página, ao invés de ter dois no checked, como havia feito, pra manter o favorito ali salvo ao entrar novamente no álbum
+    });
+  }
+
+  handleChange = (event) => {
     event.preventDefault();
     // console.log('funcionando?'); // Ok
     // console.log(this.props); // Informações da música selecionada, preciso do id da música específica para passar de param para a getMusics
-    const { trackId } = this.props;
+
+    const { target: { checked } } = event;
+    // Pegando o checked do próprio input selecionado para repassar ao meu estado, usando true/false como inicial não funcionava porque a ideia é se manter salva a informação após reload, então é variável quem inicia true e quem inicia false
+    // console.log(event.target);
+    // console.log(checked);
 
     this.setState({
-      isChecked: true,
+      isChecked: checked,
       isLoading: true,
-    });
+    }, async () => {
+      const { isChecked } = this.state;
+      const { trackId } = this.props;
+      const getMusic = await getMusics(trackId); // Retorna um ARRAY e eu preciso do OBJETO e a posição um apenas, se não dá erro, cismei que o retorno era objeto, então conserto o requisito 8 com esse update
+      // console.log(getMusic);
+      const arrayToObject = { ...getMusic[0] }; // Object assign o lint não permitiu
+      // console.log(arrayToObject);
 
-    const getMusic = await getMusics(trackId);
-    // console.log(getMusic); // Objeto com todas as informações da música com o checked
-    const getSong = await addSong(getMusic);
-    console.log(getSong);
-
-    this.setState({
-      isLoading: false,
+      if (isChecked === true) {
+        await addSong(arrayToObject);
+        this.setState({
+          isLoading: false,
+        });
+      } else {
+        await removeSong(arrayToObject);
+        this.setState({
+          isLoading: false,
+        });
+      }
     });
   }
 
   render() {
-    const { trackName, previewUrl, trackId, checked } = this.props;
+    const { trackName, previewUrl, trackId } = this.props;
     const { isChecked, isLoading } = this.state;
-    // console.log(typeof trackName); //string
-    // console.log(typeof previewUrl); // string
-    // console.log(isChecked);
-    const isFavorite = checked.some((favoriteId) => favoriteId === trackId);
-    // console.log(isFavorite);
 
     return (
       <div>
@@ -62,7 +79,7 @@ class MusicCard extends React.Component {
                 data-testid={ `checkbox-music-${trackId}` }
                 onChange={ this.handleChange }
                 // Mudei pra change porque deu warning usando click
-                checked={ (isFavorite) || (isChecked) }
+                checked={ isChecked }
               />
             </label>
           </div>
@@ -87,4 +104,7 @@ export default MusicCard;
 // https://stackoverflow.com/questions/6358673/javascript-checkbox-onchange
 
 // Requisito 9
-// Jensem dá a luz sobre eu enviar pra cá o map que eu tinha feito de id-favoritas (da Album), via props, a partir disso usar alguma hof pra cruzar as informações se o id se repete, ou seja, a favorita.Para isso, vou deixar meu estado para manter dando check e o loading acontecer enquanto se espera a API. Ao fnalizar, a 8 deixava de passar e Pessini sugere o uso de condicional para que assim, o checked pegue ambos (meu isChecked que sempre foi do estado e o boolean que o some me dá)
+// Jensem dá a luz sobre eu enviar pra cá o map que eu tinha feito de id-favoritas (da Album), via props, a partir disso usar alguma hof pra cruzar as informações se o id se repete, ou seja, a favorita.Para isso, vou deixar meu estado para manter dando check e o loading acontecer enquanto se espera a API. Ao fnalizar, a 8 deixava de passar e Pessini sugere o uso de condicional para que assim, o checked pegue ambos (meu isChecked que sempre foi do estado e o boolean que o some me dá), consegui mudar isso passando no didMount o boolean do meu some, evitando duplicar o checked
+
+// Requisito 11
+// Array to object https://stackoverflow.com/questions/4215737/convert-array-to-object

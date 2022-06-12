@@ -1,8 +1,72 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
 import Loading from '../components/Loading';
 import ArtistCard from './ArtistCard';
+
+const Input = styled.input`
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 12px 16px;
+gap: 10px;
+position: relative;
+width: 300px;
+height: 30px;
+left: 30px;
+top: 20px;
+background: #FFFFFF;
+border: 1px solid #3D495C;
+border-radius: 6px;
+`;
+
+const Button = styled.button`
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 8px 32px;
+gap: 10px;
+position: relative;
+width: 104px;
+height: 45px;
+left: 406px;
+top: -27px;
+background: #003BE5;
+color: #FFFFFF;
+`;
+
+const Wrapper = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+flex-wrap: wrap;
+`;
+
+const Card = styled.div`
+width: 200px;
+height: 230px;
+background: #023031;
+border: 0px solid rgba(0, 0, 0, 0.4);
+border-radius: 10px;
+margin-top: 30px;
+justify-content: center;
+align-items: center;
+text-align: center;
+box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+transition: 0.3s;
+a {
+  color: white;
+  text-decoration: none;
+}
+overflow: hidden;
+
+:hover {
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.4);
+}
+`;
 
 class Search extends React.Component {
   constructor() {
@@ -63,27 +127,27 @@ class Search extends React.Component {
     const { isDisabled, inputValue, showInputBtn, artistInfos,
       receiveInputValue } = this.state;
     return (
-      <div data-testid="page-search">
+      <Wrapper data-testid="page-search">
 
         {showInputBtn ? <Loading />
         // Enquanto aguarda a resposta da API, esconda o input e o botão de pesquisa e exiba a mensagem Carregando... na tela.
           : (
             <div>
-              <input
+              <Input
                 data-testid="search-artist-input"
                 placeholder="Digite o nome da banda ou do artista"
                 onChange={ this.onInputChange }
                 value={ inputValue }
                 name="inputValue"
               />
-              <button
+              <Button
                 data-testid="search-artist-button"
                 type="submit"
                 disabled={ isDisabled }
                 onClick={ this.handleClick }
               >
                 Pesquisar
-              </button>
+              </Button>
             </div>
           )}
 
@@ -98,28 +162,29 @@ class Search extends React.Component {
           // Se nenhum álbum for encontrado para o nome pesquisado, a API irá retornar um array vazio. Nesse caso, a mensagem Nenhum álbum foi encontrado deverá ser exibida. E se nada for encontrado como vem com array vazio, .length resolve
 
           : artistInfos.map((element, index) => (
+            <Card key={ index }>
+              <Link
+                data-testid={ `link-to-album-${element.collectionId}` }
+                to={ `/album/${element.collectionId}` }
 
-            <Link
-              data-testid={ `link-to-album-${element.collectionId}` }
-              to={ `/album/${element.collectionId}` }
-              key={ index }
-            >
-              {/* link em cada card para redirecionar para a página do álbum, com o atributo data-testid={`link-to-album-${collectionId}`}. Onde collectionId é o valor da propriedade de cada Álbum.
+              >
+                {/* link em cada card para redirecionar para a página do álbum, com o atributo data-testid={`link-to-album-${collectionId}`}. Onde collectionId é o valor da propriedade de cada Álbum.
               Redireciona para a rota /album/:id(valor da propriedade collectionId) */}
 
-              <ArtistCard
-                artistName={ element.artistName }
-                collectionName={ element.collectionName }
-                artworkUrl100={ element.artworkUrl100 }
-                releaseDate={ element.releaseDate }
-                key={ index }
+                <ArtistCard
+                  artistName={ element.artistName }
+                  collectionName={ element.collectionName }
+                  artworkUrl100={ element.artworkUrl100 }
+                  releaseDate={ element.releaseDate }
+                  key={ index }
                 // Liste os álbuns retornados.
-              />
+                />
 
-            </Link>
+              </Link>
+            </Card>
             // Só consegui assim, usando div para encapsular queixava de key, mas usando o Link como a tag pai foi
           )) }
-      </div>
+      </Wrapper>
     );
   }
 }

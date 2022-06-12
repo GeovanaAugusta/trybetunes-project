@@ -82,6 +82,7 @@ class MusicCard extends React.Component {
                 checked={ isChecked }
               />
             </label>
+
           </div>
         ) }
       </div>

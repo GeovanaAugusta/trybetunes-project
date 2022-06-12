@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { createGlobalStyle } from 'styled-components';
 import Login from './pages/Login';
 import Search from './pages/Search';
 import Album from './pages/Album';
@@ -9,11 +10,21 @@ import ProfileEdit from './pages/ProfileEdit';
 import NotFound from './pages/NotFound';
 import Header from './components/Header';
 
+const GlobalStyle = createGlobalStyle`
+* {
+  padding: 0px;
+  font-family: sans-serif;
+  margin: 0px;
+}
+`;
+// Chama a fn com template literals, para aproximar a criação de um css puro
+
 class App extends React.Component {
   render() {
     return (
 
       <BrowserRouter>
+        <GlobalStyle />
         <Header />
         <Switch>
           <Route exact path="/" component={ Login } />

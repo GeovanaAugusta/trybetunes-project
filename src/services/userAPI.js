@@ -22,7 +22,7 @@ const simulateRequest = (response) => (callback) => {
 
 export const getUser = () => new Promise((resolve) => {
   let user = readUser();
-  // console.log(user); OK, um objeto com nome, email, imagem e descrição
+  // console.log(user); // OK, um objeto com nome, email, imagem e descrição
   if (user === null) {
     user = {};
   }

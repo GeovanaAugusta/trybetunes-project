@@ -1,7 +1,45 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import { getUser } from '../services/userAPI';
 import Loading from './Loading';
+
+const Headers = styled.header`
+width: 100%;
+height: 96px;
+background: #023031;
+display: flex;
+align-items: center;
+justify-content: space-between;
+color: white;
+`;
+
+const Nav = styled.nav`
+a {
+  color: white;
+  text-decoration: none;
+  font-style: normal; 
+  font-weight: 600; 
+  font-size: 18px; 
+  line-height: 22px; 
+  margin-right: 20px; 
+  margin-left: 20px; 
+}
+`;
+
+const NameUser = styled.div`
+font-style: normal; 
+font-weight: 600; 
+font-size: 20px; 
+line-height: 34px; 
+margin-right: 3%; 
+right: 13px;
+`;
+
+const User = styled.div`
+margin-left: 820px;
+`;
 
 class Header extends React.Component {
   constructor(props) {
@@ -28,20 +66,33 @@ class Header extends React.Component {
   render() {
     const { isLoading, userInfos } = this.state;
     return (
-      <header data-testid="header-component">
+      <Headers data-testid="header-component">
+        <Nav>
+          <Link data-testid="link-to-search" to="/search">Search</Link>
+          {' '}
+          |
+          <Link data-testid="link-to-favorites" to="/favorites">Favorites</Link>
+          {' '}
+          |
+          <Link data-testid="link-to-profile" to="/profile">Profile</Link>
+        </Nav>
+        <User>
+          <PersonOutlineIcon />
+        </User>
         {isLoading ? <Loading />
           : (
-            <div>
-              <h1 data-testid="header-user-name">
-                { userInfos.name }
-              </h1>
-            </div>
-          )}
-        <Link data-testid="link-to-search" to="/search">Search</Link>
-        <Link data-testid="link-to-favorites" to="/favorites">Favorites</Link>
-        <Link data-testid="link-to-profile" to="/profile">Profile</Link>
-      </header>
+            <NameUser>
+              <h3 data-testid="header-user-name">
 
+                { userInfos.name }
+
+              </h3>
+
+            </NameUser>
+
+          )}
+      </Headers>
+    // Troca a tag pelo nome da const com estilo
     );
   }
 }

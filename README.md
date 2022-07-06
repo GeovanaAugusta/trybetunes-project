@@ -26,4 +26,4 @@ A aplicação foi desenvolvida em React usando o React Props como ferramenta de 
 
 ## Hospedagem
 
-_[Projeto - Trybetunes](https://trybetunes-project-frontend-geovanaaugusta.vercel.app//)_
+_[Projeto - Trybetunes](https://trybetunes-project-geovanaaugusta.vercel.app//)_

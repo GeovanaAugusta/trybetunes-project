@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const Input = styled.input`
 display: flex;
 flex-direction: column;
-position: absolute;
+position: relative;
 align-items: flex-start;
 gap: 10px;
 text-align: left;
@@ -17,11 +17,12 @@ border-radius: 0px;
 `;
 
 const Div = styled.div`
-position: relative;
-width: 100%;
-height: 334px;
-left: 272px;
-top: 101px;
+width: 870px;
+height: 404px;
+position: absolute;
+top: 60%;
+left: 50%;
+transform: translate(-50%, -50%);
 background: #FAFAFA;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 border-radius: 10px;
@@ -51,7 +52,7 @@ left: 184px;
 top: 197px;
 background: #003BE5;
 color: #FFFFFF;
-position: absolute;
+position: relative;
 :disabled {
   background-color: #7F9C96;
 }

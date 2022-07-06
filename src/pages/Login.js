@@ -63,6 +63,7 @@ class Login extends React.Component {
              : (
                <div>
                  <Img src={ Trybetunes } alt="Profile trybetunes" />
+                 <AccountCircleIcon />
                  <Input
                    data-testid="login-name-input"
                    onChange={ this.onInputChange }
@@ -78,7 +79,6 @@ class Login extends React.Component {
                  >
                    Entrar
                  </Button>
-                 <AccountCircleIcon />
                </div>
              )}
          </div>

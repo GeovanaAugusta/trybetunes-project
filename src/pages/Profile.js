@@ -23,7 +23,6 @@ class Profile extends React.Component {
     });
 
     const getUserInfos = await getUser();
-    // console.log(getUserInfos);
 
     this.setState({
       name: getUserInfos.name,

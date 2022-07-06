@@ -21,12 +21,10 @@ class Favorites extends React.Component {
     const getFavorite = await getFavoriteSongs();
     console.log(getFavorite);
 
-    // Para quando a resposta da getFavorite chegar
     this.setState({
       getFavorites: getFavorite,
       isLoading: false,
     });
-    // const getRemoveSong = removeSong();
   }
 
    handleClick = async (id) => {
@@ -54,7 +52,6 @@ class Favorites extends React.Component {
 
    render() {
      const { isLoading, getFavorites, isChecked } = this.state;
-     // const { handleChange } = this.props;
      return (
 
        <div data-testid="page-favorites">

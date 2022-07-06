@@ -26,12 +26,9 @@ class ArtistCard extends React.Component {
 }
 
 ArtistCard.propTypes = {
-  // artistName: PropTypes.string.isRequired,
   collectionName: PropTypes.string.isRequired,
   artworkUrl100: PropTypes.string.isRequired,
   releaseDate: PropTypes.string.isRequired,
 };
 
 export default ArtistCard;
-
-// Queria só o ano, aí usei substr https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/String/substr, exemplos bastaram para aplicar

@@ -1,6 +1,6 @@
 # Trybetunes
 
-Neste projeto foi desenvolvida uma aplicação capaz de reproduzir músicas das mais variadas bandas e artistas. Sendo possívelfazer login, listar os álbuns disponíveis de uma banda ou artista, visualizar as músicas de um álbum selecionado e reproduzir uma prévia das músicas deste álbum.Além de favoritar e desfavoritar músicas, ver a lista de músicas favoritas, o perfil da pessoa logada e editá-lo.
+Neste projeto foi desenvolvida uma aplicação capaz de reproduzir músicas das mais variadas bandas e artistas. Sendo possível fazer login, listar os álbuns disponíveis de uma banda ou artista, visualizar as músicas de um álbum selecionado e reproduzir uma prévia das músicas deste álbum.Além de favoritar e desfavoritar músicas, ver a lista de músicas favoritas, o perfil da pessoa logada e editá-lo.
 
 A aplicação foi desenvolvida em React usando o React Props como ferramenta de compartilhamento de códigos entre os componentes.
 

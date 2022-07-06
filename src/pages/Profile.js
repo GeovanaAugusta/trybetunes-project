@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Loading from '../components/Loading';
 import { getUser } from '../services/userAPI';
+import { DivGlobal, Form, Divv, Nav } from '../CSS/profile';
+import '../index.css';
 
 class Profile extends React.Component {
   constructor() {
@@ -36,24 +38,29 @@ class Profile extends React.Component {
     const { name, email, description, image, isWaiting } = this.state;
 
     return (
-      <div data-testid="page-profile">
+      <DivGlobal data-testid="page-profile">
         {isWaiting ? <Loading /> : (
-          <div>
-            <h1>Profile</h1>
-            <img
-              data-testid="profile-image"
-              src={ image }
-              alt="My profile phto"
-            />
-            <h2>{ name }</h2>
-            <h4>{ email }</h4>
-            <p>{ description }</p>
-            <button type="button">
-              <Link to="/profile/edit">Editar perfil</Link>
-            </button>
-          </div>
+          <Divv>
+            <Form>
+              <div className="profile">
+                <img
+                  data-testid="profile-image"
+                  src={ image }
+                  alt="My profile phto"
+                />
+                <Nav className="img-profile-button">
+                  <Link to="/profile/edit">Editar perfil</Link>
+                </Nav>
+              </div>
+              <div className="infosUsers">
+                <h2>{ name }</h2>
+                <h4>{ email }</h4>
+                <p>{ description }</p>
+              </div>
+            </Form>
+          </Divv>
         )}
-      </div>
+      </DivGlobal>
     );
   }
 }

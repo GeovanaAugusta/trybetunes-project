@@ -4,6 +4,7 @@ import getMusics from '../services/musicsAPI';
 import MusicCard from '../components/MusicCard';
 import { getFavoriteSongs } from '../services/favoriteSongsAPI';
 import Loading from '../components/Loading';
+import '../index.css';
 
 class Album extends React.Component {
   constructor() {
@@ -61,8 +62,8 @@ class Album extends React.Component {
         {musics.length !== 0 && (
 
           <div>
-            <h3 data-testid="artist-name">{artistName}</h3>
-            <h3 data-testid="album-name">{collectionName}</h3>
+            <h1 data-testid="artist-name" className="artistName">{artistName}</h1>
+            <h3 data-testid="album-name" className="collectionName">{collectionName}</h3>
 
             { isWaiting ? <Loading /> : (
               arrayWithoutFirstObject.map((element, index) => (

@@ -9,6 +9,7 @@ import Profile from './pages/Profile';
 import ProfileEdit from './pages/ProfileEdit';
 import NotFound from './pages/NotFound';
 import Header from './components/Header';
+// import Footer from './pages/Footer';
 
 const GlobalStyle = createGlobalStyle`
 * {
@@ -40,6 +41,7 @@ class App extends React.Component {
           <Route path="/profile/edit" component={ ProfileEdit } />
           <Route component={ NotFound } />
         </Switch>
+        {/* <Footer /> */}
       </BrowserRouter>
     );
   }

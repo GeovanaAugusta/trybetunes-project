@@ -1,6 +1,7 @@
 import React from 'react';
 import { getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
 import Loading from '../components/Loading';
+import '../index.css';
 
 class Favorites extends React.Component {
   constructor() {
@@ -60,15 +61,16 @@ class Favorites extends React.Component {
          { isLoading ? <Loading /> : (
            getFavorites.map((element, index) => (
              <div key={ index }>
-               <h4>{ element.trackName }</h4>
+               <div className="trackName">
+                 <h4>{ element.trackName }</h4>
+               </div>
                <audio data-testid="audio-component" src={ element.previewUrl } controls>
                  <track kind="captions" />
                  O seu navegador não suporta o elemento
                  <code>audio</code>
                  .
                </audio>
-               <label htmlFor="checkbox">
-                 Favorita
+               <label htmlFor="checkbox" className="form-control">
                  <input
                    id="checkbox"
                    type="checkbox"
@@ -76,12 +78,14 @@ class Favorites extends React.Component {
                    checked={ isChecked }
                    onClick={ () => { this.handleClick(element.trackId); } }
                  />
+                 Favorita
+
                </label>
 
              </div>
            ))
          )}
-         {getFavorites.length === 0 && <h1>Nenhum favorito foi encontrado!</h1>}
+         {getFavorites.length === 0 && <h3>Nenhum favorito foi encontrado!</h3>}
        </div>
 
      );

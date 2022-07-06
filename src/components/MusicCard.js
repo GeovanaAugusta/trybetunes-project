@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Loading from './Loading';
 import { addSong, removeSong } from '../services/favoriteSongsAPI';
 import getMusics from '../services/musicsAPI';
+import '../index.css';
 
 class MusicCard extends React.Component {
   constructor() {
@@ -64,15 +65,17 @@ class MusicCard extends React.Component {
       <div>
         {isLoading ? <Loading /> : (
           <div>
-            <h4>{ trackName }</h4>
+            <div className="trackName">
+              <h4>{ trackName }</h4>
+            </div>
             <audio data-testid="audio-component" src={ previewUrl } controls>
               <track kind="captions" />
               O seu navegador não suporta o elemento
               <code>audio</code>
               .
             </audio>
-            <label htmlFor="checkbox">
-              Favoritar
+            <label htmlFor="checkbox" className="form-control">
+
               <input
                 id="checkbox"
                 type="checkbox"
@@ -81,6 +84,7 @@ class MusicCard extends React.Component {
                 // Mudei pra change porque deu warning usando click
                 checked={ isChecked }
               />
+              Favoritar
             </label>
 
           </div>

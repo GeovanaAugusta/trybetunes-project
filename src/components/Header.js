@@ -1,45 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+// import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import { getUser } from '../services/userAPI';
 import Loading from './Loading';
-
-const Headers = styled.header`
-width: 100%;
-height: 96px;
-background: #023031;
-display: flex;
-align-items: center;
-justify-content: space-between;
-color: white;
-`;
-
-const Nav = styled.nav`
-a {
-  color: white;
-  text-decoration: none;
-  font-style: normal; 
-  font-weight: 600; 
-  font-size: 18px; 
-  line-height: 22px; 
-  margin-right: 20px; 
-  margin-left: 20px; 
-}
-`;
-
-const NameUser = styled.div`
-font-style: normal; 
-font-weight: 600; 
-font-size: 20px; 
-line-height: 34px; 
-margin-right: 3%; 
-right: 13px;
-`;
-
-const User = styled.div`
-margin-left: 820px;
-`;
+import { Headers, Nav, User, NameUser, Name } from '../CSS/headerCss';
 
 class Header extends React.Component {
   constructor(props) {
@@ -68,25 +32,29 @@ class Header extends React.Component {
     return (
       <Headers data-testid="header-component">
         <Nav>
-          <Link data-testid="link-to-search" to="/search">Search</Link>
+          <Link data-testid="link-to-search" to="/search">Pesquisar</Link>
           {' '}
           |
-          <Link data-testid="link-to-favorites" to="/favorites">Favorites</Link>
+          <Link data-testid="link-to-favorites" to="/favorites">Favoritos</Link>
           {' '}
           |
-          <Link data-testid="link-to-profile" to="/profile">Profile</Link>
+          <Link data-testid="link-to-profile" to="/profile">Perfil</Link>
+
         </Nav>
-        <User>
-          <PersonOutlineIcon />
-        </User>
+        <User />
         {isLoading ? <Loading />
           : (
             <NameUser>
-              <h3 data-testid="header-user-name">
+              <h5 data-testid="header-user-name">
 
-                { userInfos.name }
+                <Name>
+                  {' '}
+                  {userInfos.name}
+                  {' '}
+                </Name>
 
-              </h3>
+              </h5>
+              {/* <PersonOutlineIcon /> */}
 
             </NameUser>
 

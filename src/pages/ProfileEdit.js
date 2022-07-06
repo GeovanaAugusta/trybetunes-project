@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Loading from '../components/Loading';
 import { getUser, updateUser } from '../services/userAPI';
+import { DivGlobal, Form, Divv } from '../CSS/profile';
 
 class ProfileEdit extends React.Component {
   constructor() {
@@ -99,76 +100,81 @@ class ProfileEdit extends React.Component {
     const { name, email, description, isLoading, image, isDisabled } = this.state;
 
     return (
-      <div data-testid="page-profile-edit">
-
-        <h1>Editar perfil</h1>
-
+      <DivGlobal data-testid="page-profile-edit">
+        <h1 className="editProfileWhite">Editar perfil</h1>
         {isLoading ? (
           <Loading />
         ) : (
-          <form>
+          <Divv>
+            <Form>
+              <form>
+                <h3>Nome</h3>
+                <label htmlFor="name">
+                  <input
+                    id="name"
+                    data-testid="edit-input-name"
+                    name="name"
+                    type="text"
+                    value={ name }
+                    onChange={ this.handleChange }
+                    required
+                  />
+                </label>
 
-            <label htmlFor="name">
-              Name
-              <input
-                id="name"
-                data-testid="edit-input-name"
-                name="name"
-                type="text"
-                value={ name }
-                onChange={ this.handleChange }
-                required
-              />
-            </label>
+                <h3>Imagem</h3>
+                <label htmlFor="image">
+                  <input
+                    id="image"
+                    data-testid="edit-input-image"
+                    type="text"
+                    placeholder="Cole o link da imagem"
+                    name="image"
+                    value={ image }
+                    onChange={ this.handleChange }
 
-            <label htmlFor="image">
-              Image
-              <input
-                id="image"
-                data-testid="edit-input-image"
-                type="text"
-                name="image"
-                value={ image }
-                onChange={ this.handleChange }
+                  />
+                </label>
 
-              />
-            </label>
+                <h3>Email</h3>
+                <label htmlFor="email">
 
-            <label htmlFor="email">
-              Email
-              <input
-                id="email"
-                data-testid="edit-input-email"
-                type="email"
-                name="email"
-                value={ email }
-                onChange={ this.handleChange }
-              />
-            </label>
+                  <input
+                    id="email"
+                    data-testid="edit-input-email"
+                    type="email"
+                    name="email"
+                    value={ email }
+                    onChange={ this.handleChange }
+                  />
+                </label>
 
-            <label htmlFor="description">
-              Descrição
-              <textarea
-                id="description"
-                data-testid="edit-input-description"
-                name="description"
-                value={ description }
-                onChange={ this.handleChange }
-              />
-            </label>
+                <h3>Descrição</h3>
+                <label htmlFor="description">
 
-            <button
-              type="button"
-              data-testid="edit-button-save"
-              onClick={ this.handleClick }
-              disabled={ isDisabled }
-            >
-              Salvar
-            </button>
+                  <textarea
+                    id="description"
+                    data-testid="edit-input-description"
+                    name="description"
+                    value={ description }
+                    onChange={ this.handleChange }
+                  />
+                </label>
 
-          </form>
+                <button
+                  type="button"
+                  data-testid="edit-button-save"
+                  onClick={ this.handleClick }
+                  disabled={ isDisabled }
+                >
+                  Salvar
+                </button>
+
+              </form>
+            </Form>
+          </Divv>
         )}
-      </div>
+
+      </DivGlobal>
     );
   }
 }

@@ -1,19 +1,114 @@
-/* body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+input[type="checkbox"] {
+  /* ...existing styles */
+  display: grid;
+  place-content: center;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+input[type="checkbox"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em var(--form-control-color);
+  background-color: rgb(43, 150, 43);
+  transform-origin: bottom left;
+  /* clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%); */
 }
 
-.loading {
-  align-items: center;
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+.form-control {
+  font-family: system-ui, sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1.1;
+  display: grid;
+  grid-template-columns: 1em auto;
+  gap: 0.5em;
+  margin-left: 330px;
+  margin-top: -15px;
+
+}
+
+.line {
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+}
+
+.trackName {
+  padding-top: 40px;
+  color: green;
+  padding-bottom: 10px;
+  padding-left: 20px;
+}
+
+.profile {
+  padding-left: 30px;
+  padding-bottom: 80px;
+  text-align: center;
+}
+
+.buttonProfile{
+  padding-left: 30px;
+  padding-bottom: 80px;
+  text-align: center;
+}
+
+.editProfileWhite {
+  color: white;
+}
+
+.infosUsers {
+  padding-left: 40px;
+  padding-bottom: 30px; 
+}
+
+.img-profile-button {
+  padding-left: 180px;
+}
+
+.artistName {
+  padding-bottom: 30px;
+  color: rgb(51, 114, 51);
+}
+
+.collectionName {
+  color: rgb(51, 114, 51);
+}
+
+/* body {
+  background-image: url('./images2/music.jpeg');
 } */
+
+.rodape-prin span {
+  
+  float: left;
+  width:45%;
+  line-height: 60px; /* Mesma altura do rodapé */
+  margin-left: 600px;
+  
+}
+
+.icones-sociais ul {
+  
+  display: inline;
+  height: inherit;
+  float: left;
+  width: 75%;
+  margin: 0;
+  line-height: 60px;
+  width: 10px;
+}
+
+.icones-sociais li
+{
+    display: inline-block;
+
+    margin-left: 5px;
+    margin-top: 7px;
+    width: 40px;
+    height: inherit;
+}

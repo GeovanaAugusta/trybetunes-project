@@ -21,9 +21,9 @@ A aplicação foi desenvolvida em React usando o React Props como ferramenta de 
 
 - Criação de links de navegação na aplicação com o componente `Link`;
 
-- Requisições à API e consumo de dados;
+- Requisições à API e consumo de dados.
 
 
-## Hospedagem
+## Deploy
 
 _[Projeto - Trybetunes](https://trybetunes-project-geovanaaugusta.vercel.app//)_
